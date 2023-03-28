@@ -32,11 +32,12 @@ end
     Book.create(
         title: Faker::Book.title,
         author: Faker::Book.author,
-        description: Faker::Lorem.paragraph_by_chars(number: 100, supplemental: true),
+        description: Faker::Lorem.paragraph_by_chars(number: 100),
         publisher: Faker::Book.publisher,
-        year_of_publication: 12-12-2015,
+        year_of_publication: "12-12-2015",
         price: 10.12,
         image_url: Faker::LoremFlickr.image,
+        isbn: "123456789012345678",
         category_id: rand(1..10)
     )
 end
