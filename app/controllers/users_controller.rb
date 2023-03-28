@@ -1,41 +1,36 @@
 class UsersController < ApplicationController
+rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
+rescue_from ActiveRecord::RecordNotFound, with: :not_found
   before_action :set_user, only: %i[ show update destroy ]
 
   # GET /users
   def index
     @users = User.all
 
-    render json: @users
+    render json: @users, status: :ok
   end
 
-  # GET /users/1
+  # GET /users/:id
   def show
-    render json: @user
+    render json: @user, status: :ok
   end
 
   # POST /users
   def create
-    @user = User.new(user_params)
-
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
+    user = User.create!(user_params)
+    render json: user, status: :created
   end
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
+    @user.update!(user_params)
+    render json: @user, status: :created
   end
 
   # DELETE /users/1
   def destroy
     @user.destroy
+    head :no_content
   end
 
   private
@@ -46,6 +41,16 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :password_digest, :phone_number, :avatar_url, :is_admin)
+      params.permit(:name, :email, :password, :phone_number, :avatar_url, :is_admin)
+    end
+
+    # render error for not found
+    def not_found
+      render json: { message: 'User not found'}, status: 404
+    end
+
+    # render error for invalid parameters / unprocessable entities
+    def render_validation_errors(invalid)
+      render json: { error: invalid.record.errors.full_messages }, status: 422
     end
 end

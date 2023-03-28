@@ -5,7 +5,7 @@ class Category < ApplicationRecord
     validates :age_category, { 
         presence: true,
         inclusion: {
-            in: %w("Young adult", "Children", "Adult"),
+            in: %w[YoungAdult Children Adult],
             message: "Age category can only be Young adult, Children or Adult"
         }
     }
