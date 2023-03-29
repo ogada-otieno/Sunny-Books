@@ -42,4 +42,21 @@ end
     )
 end
 
+50.times do
+    Order.create(
+        quantity: rand(1..20),
+        total_price: rand(20..100).round(2),
+        user_id: rand(1..10),
+        book_id: rand(1..100)
+    )
+end
+
+20.times do
+    OrderBook.create!(
+        quantity: rand(1..20),
+        book_id: rand(1..100),
+        order_id: rand(1..50)
+    )
+end
+
 puts "Done seeding!"
