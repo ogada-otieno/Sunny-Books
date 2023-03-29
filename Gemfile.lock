@@ -165,6 +165,7 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -179,8 +180,5 @@ DEPENDENCIES
   sqlite3 (~> 1.4)
   tzinfo-data
 
-RUBY VERSION
-   ruby 2.7.4p191
-
 BUNDLED WITH
-   2.4.7
+   2.4.6
