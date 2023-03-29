@@ -6,30 +6,40 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
   # GET /users
   def index
     @users = User.all
-
     render json: @users, status: :ok
   end
 
   # GET /users/:id
+  # handles auto-login
   def show
-    render json: @user, status: :ok
+    user = User.find_by(id: session[:user_id])
+    if user
+        render json: user, status: 201
+    else
+        render json: { error: "Unauthorized" }, status: 401
+    end
   end
 
   # POST /users
+  # handle signup
   def create
-    user = User.create!(user_params)
-    render json: user, status: :created
+    if user_params[:password] == user_params[:password_confirmation]
+      user = User.create!(user_params)
+      session[:user_id] = user.id
+      render json: user, status: :created
+    end
   end
 
   # PATCH/PUT /users/1
   def update
-    @user.update!(user_params)
-    render json: @user, status: :created
+    user = User.find_by(id: session[:user_id])
+    render json: user, status: :created
   end
 
   # DELETE /users/1
   def destroy
-    @user.destroy
+    user = User.find_by(id: session[:user_id])
+    user.destroy
     head :no_content
   end
 
@@ -41,7 +51,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:name, :email, :password, :phone_number, :avatar_url, :is_admin)
+      params.permit(:name, :email, :password, :phone_number, :avatar_url, :is_admin, :password_confirmation)
     end
 
     # render error for not found

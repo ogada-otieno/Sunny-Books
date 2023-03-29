@@ -1,7 +1,11 @@
 class BooksController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  before_action :authorize
   before_action :set_book, only: %i[ show update destroy ]
+  before_action :require_admin, only: [:create, :update, :destroy]
+
+  # user = User.find_by(id: session[:user_id])
 
   # GET /books
   def index
@@ -51,5 +55,14 @@ class BooksController < ApplicationController
     # render error for invalid parameters / unprocessable_entity
     def render_validation_errors(invalid)
       render json: { error: invalid.record.errors.full_messages }, status: 422
+    end
+
+    # require admin permission to create, update and destroy
+    def require_admin
+      unless current_user && current_user.is_admin?
+        # flash[:alert] = "You need to be an admin to perform this action."
+        pp "You need to be an admin to perform this action."
+        # redirect_to root_path
+      end
     end
 end
