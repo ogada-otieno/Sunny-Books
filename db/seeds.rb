@@ -25,7 +25,7 @@ end
 
 
 
-100.times do
+50.times do
     date = Faker::Date.between(from: '1950-01-01', to: '2023-03-29')
     year = date.year
 
@@ -44,17 +44,15 @@ end
 
 50.times do
     Order.create(
-        quantity: rand(1..20),
         total_price: rand(20..100).round(2),
-        user_id: rand(1..10),
-        book_id: rand(1..100)
+        user_id: rand(1..10)
     )
 end
 
 20.times do
     OrderBook.create!(
         quantity: rand(1..20),
-        book_id: rand(1..100),
+        book_id: rand(1..50),
         order_id: rand(1..50)
     )
 end

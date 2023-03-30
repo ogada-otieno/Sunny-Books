@@ -5,7 +5,6 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[ show update destroy ]
   before_action :require_admin, only: [:create, :update, :destroy]
 
-  # user = User.find_by(id: session[:user_id])
 
   # GET /books
   def index
@@ -60,9 +59,7 @@ class BooksController < ApplicationController
     # require admin permission to create, update and destroy
     def require_admin
       unless current_user && current_user.is_admin?
-        # current_user
-        # Allow the action to proceed
-        puts "You are not allowed to create, update and destroy"
+        render json: { error: "You are not allowed to create, update and destroy" }, status: :unauthorized
       end
     end
 end
