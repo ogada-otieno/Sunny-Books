@@ -1,20 +1,20 @@
 class UsersController < ApplicationController
-rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
-rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  before_action :set_user, only: %i[ show update destroy ]
+  rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  # before_action :set_user, only: %i[ show update destroy ]
 
   # GET /users
   def index
-    @users = User.all
-    render json: @users, status: :ok
+    users = User.all
+    render json: users, status: :ok
   end
 
-  # GET /users/:id
+  # GET logged user /users/:id
   # handles auto-login
   def show
-    user = User.find_by(id: session[:user_id])
+    user = User.find(session[:user_id])
     if user
-        render json: user, status: 201
+        render json: user, status: :ok
     else
         render json: { error: "Unauthorized" }, status: 401
     end
@@ -40,7 +40,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :not_found
   def destroy
     user = User.find_by(id: session[:user_id])
     user.destroy
-    head :no_content
+    # head :no_content
   end
 
   private

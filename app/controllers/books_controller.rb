@@ -56,11 +56,5 @@ class BooksController < ApplicationController
     def render_validation_errors(invalid)
       render json: { error: invalid.record.errors.full_messages }, status: 422
     end
-
-    # require admin permission to create, update and destroy
-    def require_admin
-      unless current_user && current_user.is_admin?
-        render json: { error: "You need to be an admin to perform this action." }, status: :unauthorized
-      end
-    end
+    
 end

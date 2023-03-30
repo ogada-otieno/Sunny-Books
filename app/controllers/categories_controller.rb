@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  before_action :require_admin, only: [:create, :update, :destroy]
   before_action :set_category, only: %i[ show update destroy ]
 
   # GET /categories
