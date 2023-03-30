@@ -1,9 +1,9 @@
 class BooksController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  before_action :authorize
-  before_action :set_book, only: %i[ show update destroy ]
+  before_action :current_user
   before_action :require_admin, only: [:create, :update, :destroy]
+  before_action :set_book, only: %i[ show update destroy ]
 
 
   # GET /books
@@ -19,6 +19,7 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
+    # super
     @book = Book.create!(book_params)
     render json: @book, status: :created, location: @book
   end
@@ -59,7 +60,7 @@ class BooksController < ApplicationController
     # require admin permission to create, update and destroy
     def require_admin
       unless current_user && current_user.is_admin?
-        render json: { error: "You are not allowed to create, update and destroy" }, status: :unauthorized
+        render json: { error: "You need to be an admin to perform this action." }, status: :unauthorized
       end
     end
 end
