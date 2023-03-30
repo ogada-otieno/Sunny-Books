@@ -6,7 +6,7 @@ function BookCard ({book, is_admin}) {
     const [bookData, setBookData] = useState('');
 
     useEffect(() => {
-        fetch('https://api.npoint.io/c455d61b015acccebcad/data/1')
+        fetch('')
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
