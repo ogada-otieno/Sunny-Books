@@ -60,9 +60,9 @@ class BooksController < ApplicationController
     # require admin permission to create, update and destroy
     def require_admin
       unless current_user && current_user.is_admin?
-        # flash[:alert] = "You need to be an admin to perform this action."
-        pp "You need to be an admin to perform this action."
-        # redirect_to root_path
+        # current_user
+        # Allow the action to proceed
+        puts "You are not allowed to create, update and destroy"
       end
     end
 end

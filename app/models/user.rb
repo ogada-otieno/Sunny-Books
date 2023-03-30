@@ -1,6 +1,9 @@
 class User < ApplicationRecord
-    has_many :orders
+    def is_admin?
+        self.is_admin # `is_admin` is a boolean attribute on the `User` model
+    end
 
+    has_many :orders
     
     has_secure_password
 
@@ -10,4 +13,5 @@ class User < ApplicationRecord
     validates :phone_number, presence: true
     validates :avatar_url, presence: true
     # validates :is_admin, presence: true
+
 end
