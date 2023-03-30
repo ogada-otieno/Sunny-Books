@@ -1,0 +1,40 @@
+
+   .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+}
+
+.navbar__section {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__section a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+.navbar__section button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.navbar__genres {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 150px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
