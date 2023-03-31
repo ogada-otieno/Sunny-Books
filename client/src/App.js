@@ -1,15 +1,20 @@
-import './App.css';
+import './style.css';
 import SignUp from "./SignUp";
+import { Routes, Route } from 'react-router-dom'
 import Login from "./Login";
+import Navbar from "./Navbar";
 import UserProfile from "./UserProfile";
 import Cart from "./Cart";
 function App() {
   return (
     <div className="App">
-    <SignUp />
-    <Login />
-    <UserProfile />
-    <Cart />
+      <Navbar/>
+      <Routes>
+        <Route path="/SignUp" element={<SignUp />}></Route>
+        <Route path="/Login" element={<Login />}></Route>
+        <Route path="/Profile" element={<UserProfile />}></Route>
+        <Route path="/Cart" element={<Cart />}></Route>
+      </Routes>
     </div>
   );
 }
