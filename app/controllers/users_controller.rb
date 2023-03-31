@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   # before_action :set_user, only: %i[ show update destroy ]
+  # skip_before_action :authorize, only: [:reset_password]
 
   # GET /users
   def index
@@ -9,10 +10,10 @@ class UsersController < ApplicationController
     render json: users, status: :ok
   end
 
-  # GET logged user /users/:id
+  # GET logged user /me
   # handles auto-login
   def show
-    user = User.find(session[:user_id])
+    user = User.find_by(id: session[:user_id])
     if user
         render json: user, status: :ok
     else
@@ -32,15 +33,26 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    user = User.find_by(id: session[:user_id])
+    user = User.find(session[:user_id])
+    user.update!(user_params)
+    render json: user, status: :created
+  end
+
+  # reset user password when not logged in and consequently log in. 
+  def reset_password
+    user = User.find_by(email: params[:email])
+    user.update!(password: params[:password])
+    session[:user_id] = user.id
     render json: user, status: :created
   end
 
   # DELETE /users/1
   def destroy
-    user = User.find_by(id: session[:user_id])
+    user = User.find(session[:user_id])
     user.destroy
-    # head :no_content
+
+    # after delete user, the session is deleted.
+    session.delete(:user_id)
   end
 
   private
@@ -63,4 +75,5 @@ class UsersController < ApplicationController
     def render_validation_errors(invalid)
       render json: { error: invalid.record.errors.full_messages }, status: 422
     end
+
 end

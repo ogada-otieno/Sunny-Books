@@ -10,6 +10,8 @@ const Register = () => {
     password,
     setPassword,
     handleRegister,
+    passwordConfirmation,
+    setPasswordConfirmation,
   } = useRegister();
 
   return (
@@ -42,15 +44,15 @@ const Register = () => {
             placeholder="Enter password"
           />
         </div>
-        {/* <div>
+        <div>
           <label>Confirm password</label>
           <input
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Enter password"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+            placeholder="Confirm your password"
           />
-        </div> */}
+        </div>
         <div>
           <button>Submit</button>
         </div>

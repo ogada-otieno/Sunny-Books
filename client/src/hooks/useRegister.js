@@ -6,7 +6,7 @@ export const useRegister = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-//   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const navigate = useNavigate();
   const handleRegister = async (e) => {
@@ -14,9 +14,9 @@ export const useRegister = () => {
 
     const registerPayload = {
       name,
-      password,
       email,
-    //   password_confirmation: passwordConfirmation
+      password,
+      password_confirmation: passwordConfirmation
     };
 
     try {
@@ -29,12 +29,13 @@ export const useRegister = () => {
       const { data } = response;
 
       if (data) {
-        // redirect the user to login screen
-        navigate("/");
+        // redirect the user to home screen
+        navigate("/login");
         // reset the registration fields
         setName("");
         setEmail("");
         setPassword("");
+        setPasswordConfirmation("");
       }
     } catch (error) {
       console.log(error);
@@ -48,6 +49,8 @@ export const useRegister = () => {
     setEmail,
     password,
     setPassword,
+    passwordConfirmation,
+    setPasswordConfirmation,
     handleRegister,
   };
 };
