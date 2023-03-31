@@ -1,4 +1,5 @@
 import React, { useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 //import BookCard from './BookCard';
 
 function BookList () {
@@ -6,7 +7,7 @@ function BookList () {
 
 
     useEffect(() => {
-        fetch('https://sunny-books-server.onrender.com/books')
+        fetch('https://sunny-books-server.onrender.com/books/')
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
@@ -47,15 +48,20 @@ return (
         <div className="row row-cols-1 row-cols-md-4 g-4">
             {bookData.map((book) => (
                 <div className='col mb-3 mt-5'>
-                    <div className='card'>
+                
+                    <div className='card'  style={{ backgroundColor: "#E8F5FE", cursor: "pointer" }} key={book.id}>
                         <div className="card d-flex-row" key={book.id}>
+                        <Link to="/books">
                         <h2>{book.title}</h2>
                         <p>Author: {book.author}</p>
                         <img src={book.image_url} alt={book.title}/>
                         <p>Price: {book.price}</p>
+                        </Link>
                         <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
                      </div>
                     </div>
+                
+                    
 
                 </div>
                 

@@ -1,20 +1,24 @@
 import React, {useEffect, useState} from 'react';
+//import { Link } from 'react-router-dom';
 
 
-function BookCard ({book, onUpdate}) {
+function BookCard ({ book, onUpdate }) {
 
+     
+   
     const [bookData, setBookData] = useState('');
 
+
     useEffect(() => {
-        fetch('https://sunny-books-server.onrender.com/books/:id')
+        fetch(`https://sunny-books-server.onrender.com/books`)
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
-
+            console.log("clicked")
     }, [book]);
 
     const handleDelete = () => {
-        fetch('', {
+        fetch(`https://sunny-books-server.onrender.com/books/${book.id}`, {
             method: "DELETE"
         })
         .then(response => {
@@ -34,13 +38,12 @@ function BookCard ({book, onUpdate}) {
     };
 
     const handleUpdate = () => {
-        fetch('', {
+        fetch(`https://sunny-books-server.onrender.com/books/${book.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: bookData.id,
                 title: bookData.title,
                 author: bookData.author,
                 image_url: bookData.image_url,
@@ -73,7 +76,13 @@ function BookCard ({book, onUpdate}) {
         })
     }
 
+
     const handleAddToCart = () => {
+
+        if (!bookData) {
+            return;
+          }
+
         const newItem = {
           title: bookData.title,
           price: bookData.price,
@@ -107,14 +116,15 @@ function BookCard ({book, onUpdate}) {
 
 
     return (
-        <div className="book-card">
+       
+            <div className="book-card" >
             {bookData && (
                 <>
-                <h2>{book.title}</h2>
-                <p>Author: {book.author}</p>
-                <img src={book.image_url} alt={book.title}/>
-                <p>Description: {book.description}</p>
-                <p>Price: {book.price}</p>
+                <h2>{bookData.title}</h2>
+                <p>Author: {bookData.author}</p>
+                <img src={bookData.image_url} alt="book"/>
+                <p>Description: {bookData.description}</p>
+                <p>Price: {bookData.price}</p>
                 <button className="delete-button" onClick={handleDelete}>Delete</button>
                 <button className="update-button" onClick={handleUpdate}>Update</button>
                 <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
@@ -122,7 +132,10 @@ function BookCard ({book, onUpdate}) {
             
                 
             )}
-        </div>
+            </div>
+
+       
+        
     )
 
 
