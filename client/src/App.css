@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+.card {
+  background-color: rgb(240, 219, 189);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.add-to-cart-button {
+  background-color: transparent;
+  border: 2px solid green;
+  color: green;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.add-to-cart-button:hover {
+  background-color: green;
+  color: white;
+}
+
+.add-to-cart-button:active {
+  background-color: darkgreen;
+  color: white;
+}
