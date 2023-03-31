@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import  './style.css'
+import { Link } from "react-router-dom";
 
 
 
@@ -54,9 +55,7 @@ const Login = () => {
       <a href="#" onClick={handleResetPasswordClick}>
         Reset Password
       </a>
-      <a href="#" onClick={handleSignUpClick}>
-        Sign Up
-      </a>
+      <Link to="/signUp">Don't have an Account? SignUp</Link>
     </form>
   );
 };
