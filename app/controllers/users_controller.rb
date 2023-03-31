@@ -2,8 +2,7 @@ class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   # before_action :set_user, only: %i[ show update destroy ]
-  # skip_before_action :authorize, only: [:reset_password]
-
+ 
   # GET /users
   def index
     users = User.all
