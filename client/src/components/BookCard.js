@@ -6,7 +6,7 @@ function BookCard ({book, onUpdate}) {
     const [bookData, setBookData] = useState('');
 
     useEffect(() => {
-        fetch('https://api.npoint.io/c455d61b015acccebcad/data/')
+        fetch('https://sunny-books-server.onrender.com/books/:id')
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
@@ -43,7 +43,7 @@ function BookCard ({book, onUpdate}) {
                 id: bookData.id,
                 title: bookData.title,
                 author: bookData.author,
-                //image_url: bookData.image_url,
+                image_url: bookData.image_url,
                 description: bookData.description,
                 publisher: bookData.publisher,
                 year_of_publication: bookData.year_of_publication,
