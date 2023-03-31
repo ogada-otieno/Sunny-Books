@@ -6,7 +6,7 @@ function BookList () {
 
 
     useEffect(() => {
-        fetch('https://api.npoint.io/c455d61b015acccebcad/data/')
+        fetch('https://sunny-books-server.onrender.com/books')
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
@@ -54,10 +54,6 @@ return (
                         <img src={book.image_url} alt={book.title}/>
                         <p>Price: {book.price}</p>
                         <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
-                        {/* <BookCard 
-                        key={book.id}
-                        book={book}
-                        /> */}
                      </div>
                     </div>
 
