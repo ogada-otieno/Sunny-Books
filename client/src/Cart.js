@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./cart.css"
 
 const Cart = () => {
   const [items, setItems] = useState([]);
@@ -82,6 +83,7 @@ const Cart = () => {
         <li>
           <strong>Title:</strong> "To Kill a Mockingbird"
           <button onClick={() => addItem("To Kill a Mockingbird", "Harper Lee", 7.99)}>Add to Cart</button>
+          <button>Continue Shopping</button>
         </li>
       </ul>
     </div>
