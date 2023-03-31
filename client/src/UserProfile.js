@@ -6,6 +6,7 @@ function UserProfile() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [newBook, setNewBook] = useState('');
   const [books, setBooks] = useState([]);
 
   // Handler functions for updating user data
@@ -16,18 +17,20 @@ function UserProfile() {
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
+  const handleBookChange =(event) => {
+    setNewBook(event.target.value);
+  }
 
   const handleAddBook = (event) => {
     event.preventDefault();
-    const newBook = event.target.elements.book.value;
     setBooks([...books, newBook]);
-    event.target.reset();
+    setNewBook('')
   };
 
   // Render the user profile form
   return (
-    <div>
-      <h2>User Profile</h2>
+    <div className='purchase'>
+      <h2>Buy a Book</h2>
       <form>
         <div>
           <label htmlFor="name">Name:</label>
@@ -40,7 +43,7 @@ function UserProfile() {
         
         <div>
           <label htmlFor="book">Add Book:</label>
-          <input type="text" id="book" />
+          <input type="text" id="book" value={newBook} onChange={handleBookChange}/>
           <button onClick={handleAddBook}>Add</button>
         </div>
       </form>
