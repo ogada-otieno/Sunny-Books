@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 
 
-function BookCard ({book, is_admin}) {
+function BookCard ({book, onUpdate}) {
 
     const [bookData, setBookData] = useState('');
 
     useEffect(() => {
-        fetch('https://api.npoint.io/c455d61b015acccebcad/data/3')
+        fetch('')
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
@@ -14,7 +14,7 @@ function BookCard ({book, is_admin}) {
     }, [book]);
 
     const handleDelete = () => {
-        fetch('https://api.npoint.io/c455d61b015acccebcad/data/', {
+        fetch('', {
             method: "DELETE"
         })
         .then(response => {
@@ -49,28 +49,58 @@ function BookCard ({book, is_admin}) {
                 price: bookData.price,
             }),
         })
-        // .then((response) => {
-        //     if (response.ok) {
-        //         //updating the state
+        .then((response) => {
+            if (response.ok) {
+                //updating the state
+                
+                return response.json();
+            } else {
+                //error condition 
 
-        //         return response.json();
-        //     } else {
-        //         //error condition 
+                return response.json().then((data) => {
+                    throw new Error(data.error);
 
-        //         return response.json().then((data) => {
-        //             throw new Error(data.error);
-
-        //         });
-        //     }
-        // })
-        // .then((updatedBook) => {
-        //     this.props.onUpdate(updatedBook); 
-        // })
-        // .catch((error) => {
-        //     //other errors
-        //     console.log(error);
-        // })
+                });
+            }
+        })
+        .then((updatedBook) => {
+            onUpdate(updatedBook); 
+        })
+        .catch((error) => {
+            //other errors
+            console.log(error);
+        })
     }
+
+    const handleAddToCart = () => {
+        const newItem = {
+          title: bookData.title,
+          price: bookData.price,
+          quantity: 1
+        };
+        
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let itemIndex = -1;
+        
+        // Check if item is already in cart
+        for (let i = 0; i < cart.length; i++) {
+          if (cart[i].title === newItem.title) {
+            itemIndex = i;
+            break;
+          }
+        }
+        
+        if (itemIndex === -1) {
+          // Item is not in cart, add it
+          cart.push(newItem);
+        } else {
+          // Item is already in cart, update quantity
+          cart[itemIndex].quantity++;
+        }
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        console.log('Book added to cart successfully');
+      };
             
     
 
@@ -86,6 +116,7 @@ function BookCard ({book, is_admin}) {
                 <p>Price: {bookData.price}</p>
                 <button className="delete-button" onClick={handleDelete}>Delete</button>
                 <button className="update-button" onClick={handleUpdate}>Update</button>
+                <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
                 </>
             
                 
