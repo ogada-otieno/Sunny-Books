@@ -6,7 +6,7 @@ function BookCard ({book, onUpdate}) {
     const [bookData, setBookData] = useState('');
 
     useEffect(() => {
-        fetch('')
+        fetch('https://api.npoint.io/c455d61b015acccebcad/data/')
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
@@ -40,9 +40,10 @@ function BookCard ({book, onUpdate}) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                id: bookData.id,
                 title: bookData.title,
                 author: bookData.author,
-                image_url: bookData.image_url,
+                //image_url: bookData.image_url,
                 description: bookData.description,
                 publisher: bookData.publisher,
                 year_of_publication: bookData.year_of_publication,
@@ -109,11 +110,11 @@ function BookCard ({book, onUpdate}) {
         <div className="book-card">
             {bookData && (
                 <>
-                <h2>{bookData.title}</h2>
-                <p>Author: {bookData.author}</p>
-                <img src={bookData.image_url} alt={bookData.title}/>
-                <p>Description: {bookData.description}</p>
-                <p>Price: {bookData.price}</p>
+                <h2>{book.title}</h2>
+                <p>Author: {book.author}</p>
+                <img src={book.image_url} alt={book.title}/>
+                <p>Description: {book.description}</p>
+                <p>Price: {book.price}</p>
                 <button className="delete-button" onClick={handleDelete}>Delete</button>
                 <button className="update-button" onClick={handleUpdate}>Update</button>
                 <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
