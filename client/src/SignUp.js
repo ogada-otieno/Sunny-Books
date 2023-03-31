@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './style.css'
+import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -77,9 +78,10 @@ const SignUpForm = () => {
 
         <p>By creating an account you agree to our <a href="#" style={{ color: "dodgerblue" }}>Terms & Privacy</a>.</p>
         <button type="submit">Sign Up</button>
+         <Link to="/login">Already Have an Account? Login</Link>
       </div>
     </form>
   );
 };
-
+                     
 export default SignUpForm;
