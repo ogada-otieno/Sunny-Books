@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
-import AddIcon from "@mui/material/Add";
+import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
 import { addToCart } from "../state";
 import { useNavigate } from "react-router-dom";
 
-const BookCard = ({ item, width }) => {
+const BookCard = ({ book, width }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [count, setCount] = useState(1); //local state: count of number of items we'll add to the cart
@@ -20,7 +20,11 @@ const BookCard = ({ item, width }) => {
   } = useTheme();
 
   //destructure the book item attributes
-  const { category, price, name, image } = item.attributes;
+
+  const { category, price, title, image_url } = book;
+  
+  // category = book.category.genre
+
 
   //   const {
   //     data: {
@@ -30,7 +34,7 @@ const BookCard = ({ item, width }) => {
   //         },
   //       },
   //     },
-  //   } = image;
+  //   } = category;
 
   return (
     <Box width={width}>
@@ -40,11 +44,11 @@ const BookCard = ({ item, width }) => {
         onMouseOut={() => setIsHovered(false)}
       >
         <img
-          alt={item.name}
+          alt={book.title}
           width="300px"
           height="400px"
-          src={item.image_url}
-          onClick={() => navigate(`/item/${item.id}`)}
+          src={image_url}
+          onClick={() => navigate(`/item/${book.id}`)}
           style={{ cursor: "pointer" }}
         />
         <Box
@@ -74,7 +78,7 @@ const BookCard = ({ item, width }) => {
             {/* button for add to cart */}
             <Button
               onClick={() => {
-                dispatch(addToCart({ item: { ...item, count } }));
+                dispatch(addToCart({ item: { ...book, count } }));
               }}
               sx={{ backgroundColor: shades.primary[300], color: "white" }}
             >
@@ -85,11 +89,12 @@ const BookCard = ({ item, width }) => {
       </Box>
       <Box mt="3px">
         <Typography variant="subtitle2" color={neutral.dark}>
-          {category
+          {book.category.genre}
+          {/* {category
             .replace(/([A-Z])/g, "$1")
-            .replace(/^./, (str) => str.toUpperCase())}
+            .replace(/^./, (str) => str.toUpperCase())} */}
         </Typography>
-        <Typography>{name}</Typography>
+        <Typography>{title}</Typography>
         <Typography fontWeight="bold">KES {price}</Typography>
       </Box>
     </Box>

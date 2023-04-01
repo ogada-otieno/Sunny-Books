@@ -26,7 +26,7 @@ function App() {
     // auto-login user
     fetch("/me", {
       method: "GET",
-      credentials: "same-origin", // or 'same-origin'
+      // credentials: "same-origin", // or 'same-origin'
     }).then((res) => {
       if (res.ok) {
         res

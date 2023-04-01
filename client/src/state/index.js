@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isCartOpen: false,
   cart: [],
-  items: [],
+  books: [],
 };
 
 // function that updates the global state
@@ -15,7 +15,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     setItems: (state, action) => {
-      state.items = action.payload;
+      state.books = action.payload;
     },
 
     addToCart: (state, action) => {
@@ -24,27 +24,27 @@ export const cartSlice = createSlice({
 
     removeFromCart: (state, action) => {
       // anytime we want to remove from the cart, we filter out everything or keep all the items that are not equal to the ID that we are passing in. So the ID to be removed is passed in the action and everything else is left in the cart.
-      state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+      state.cart = state.cart.filter((book) => book.id !== action.payload.id);
     },
 
     // map through the entire cart to figure out which item to increment/update.
     increaseCount: (state, action) => {
-      state.cart = state.cart.map((item) => {
-        if (item.id === action.payload.id) {
-          item.count++;
+      state.cart = state.cart.map((book) => {
+        if (book.id === action.payload.id) {
+          book.count++;
         }
-        return item;
+        return book;
       });
     },
 
     // map through the entire cart to figure out item to decrement
     // to avoid negative numbers, ensure item is > 1.
     decreaseCount: (state, action) => {
-      state.cart = state.cart.map((item) => {
-        if (item.id === action.payload.id && item.count > 1) {
-          item.count--;
+      state.cart = state.cart.map((book) => {
+        if (book.id === action.payload.id && book.count > 1) {
+          book.count--;
         }
-        return item;
+        return book;
       });
     },
 
