@@ -1,9 +1,28 @@
-import { useLogin } from "../hooks/useLogin";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const { email, setEmail, password, setPassword, handleLogin } = useLogin();
+const Login = ({ onLogin }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
-
+  function handleLogin(e) {
+    e.preventDefault();
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => {
+          onLogin(user)
+          navigate('/')
+        });
+      }
+    });
+  }
 
   return (
     <form className="login" onSubmit={handleLogin}>

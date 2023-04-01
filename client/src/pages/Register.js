@@ -1,18 +1,38 @@
-import React from "react";
-import { useRegister } from "../hooks/useRegister";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Register = () => {
-  const {
-    name,
-    setName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    handleRegister,
-    passwordConfirmation,
-    setPasswordConfirmation,
-  } = useRegister();
+const Register = ({ onRegister }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  const navigate = useNavigate();
+
+  function handleRegister(e) {
+    e.preventDefault();
+    fetch("/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        password_confirmation: passwordConfirmation,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          res.json().then((user) => {
+            onRegister(user);
+            navigate("/");
+          });
+        }
+      })
+      .catch((err) => console.error(err));
+  }
 
   return (
     <div>
