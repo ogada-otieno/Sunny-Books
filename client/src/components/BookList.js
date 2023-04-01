@@ -51,7 +51,7 @@ return (
                 
                     <div className='card'  style={{ backgroundColor: "#E8F5FE", cursor: "pointer" }} key={book.id}>
                         <div className="card d-flex-row" key={book.id}>
-                        <Link to="/books">
+                        <Link to="/book-card">
                         <h2>{book.title}</h2>
                         <p>Author: {book.author}</p>
                         <img src={book.image_url} alt={book.title}/>
