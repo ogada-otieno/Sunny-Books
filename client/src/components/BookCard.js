@@ -10,7 +10,7 @@ function BookCard ({ book, onUpdate }) {
 
 
     useEffect(() => {
-        fetch(`https://sunny-books-server.onrender.com/books`)
+        fetch(`https://sunny-books-server.onrender.com/books/${book.id}`)
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
