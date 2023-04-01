@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 //import { Link } from 'react-router-dom';
 
 
-function BookCard ({ book, onUpdate }) {
+function BookCard ({ book, onUpdate, onDelete }) {
 
      
    
@@ -10,7 +10,7 @@ function BookCard ({ book, onUpdate }) {
 
 
     useEffect(() => {
-        fetch(`https://sunny-books-server.onrender.com/books/${book.id}`)
+        fetch(`https://sunny-books-server.onrender.com/books/5`)
         .then(response => response.json())
         .then(data => setBookData(data))
         .catch(error => console.log(error));
@@ -24,7 +24,7 @@ function BookCard ({ book, onUpdate }) {
         .then(response => {
             if(response.ok) {
                 //update UI to delete BookCard
-
+                onDelete(book.id)
                 console.log('Book Deleted Successfully');
             } else {
                 console.log('Failed to Delete Book');
