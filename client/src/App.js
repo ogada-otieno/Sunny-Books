@@ -7,6 +7,7 @@ import Checkout from "./pages/checkout/Checkout";
 import ItemDetails from "./pages/itemDetails/ItemDetails";
 import Confirmation from "./pages/checkout/Confirmation";
 import Navbar from "./pages/global/Navbar";
+import CartMenu from "./pages/global/CartMenu";
 
 // starts each page you navigate to at the top
 const ScrollToTop = () => {
@@ -53,8 +54,8 @@ function App() {
 
   return (
     <div className="app">
-    <Navbar />
-    <ScrollToTop />
+      <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route
           exact
@@ -75,6 +76,7 @@ function App() {
         <Route exact path="/checkout/success" element={<Confirmation />} />
         <Route exact path="item/:itemId" element={<ItemDetails />} />
       </Routes>
+      <CartMenu />
     </div>
   );
 }
