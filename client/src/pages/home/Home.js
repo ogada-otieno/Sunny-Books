@@ -1,25 +1,10 @@
-import React from "react";
+import MainCarousel from "./MainCarousel";
 
-const Home = ({ user, onLogout }) => {
-    const handleLogout = () => {
-        fetch("/logout", {
-            method: "DELETE",
-        }).then(() => onLogout())
-    }
 
+const Home = () => {
   return (
-    <div>
-      Home
-      {user ? (
-        <>
-          <h1>Welcome {user.name}</h1>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <h1>Not logged in.</h1>
-        </>
-      )}
+    <div className="home">
+      <MainCarousel />
     </div>
   );
 };

@@ -54,7 +54,7 @@ function App() {
 
   return (
     <div className="app">
-      <Navbar />
+      <Navbar user={user} onLogout={handleLogout} />
       <ScrollToTop />
       <Routes>
         <Route
