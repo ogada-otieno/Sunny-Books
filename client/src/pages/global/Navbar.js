@@ -6,15 +6,24 @@ import {
   MenuOutlined,
   SearchOutlined,
 } from "@mui/icons-material";
+import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
 
-const Navbar = () => {
+const Navbar = ({ user, onLogout }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+
+  const handleLogout = () => {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then(() => onLogout());
+  };
+
   return (
     <Box
       display="flex"
@@ -40,6 +49,9 @@ const Navbar = () => {
           sx={{ "&:hover": { cursor: "pointer" } }}
           color={shades.secondary[500]}
         >
+          <IconButton sx={{ color: "green" }}>
+            <WbSunnyOutlinedIcon />
+          </IconButton>
           Sunny Books
         </Box>
         <Box
@@ -74,6 +86,11 @@ const Navbar = () => {
               <AddShoppingCartIcon />
             </IconButton>
           </Badge>
+          {user && (
+            <IconButton onClick={handleLogout} sx={{ color: "red" }}>
+              <LogoutSharpIcon />
+            </IconButton>
+          )}
           <IconButton sx={{ color: "black" }}>
             <MenuOutlined />
           </IconButton>
