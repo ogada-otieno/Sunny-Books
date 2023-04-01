@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import Register from "./pages/Register";
-import Checkout from "./pages/Checkout";
+import Checkout from "./pages/checkout/Checkout";
+import ItemDetails from "./pages/itemDetails/ItemDetails";
+import Confirmation from "./pages/checkout/Confirmation";
+import Navbar from "./pages/global/Navbar";
 
 // starts each page you navigate to at the top
 const ScrollToTop = () => {
@@ -50,6 +53,7 @@ function App() {
 
   return (
     <div className="app">
+    <Navbar />
     <ScrollToTop />
       <Routes>
         <Route
@@ -68,6 +72,8 @@ function App() {
           element={<Home user={user} onLogout={handleLogout} />}
         />
         <Route exact path="/checkout" element={<Checkout />} />
+        <Route exact path="/checkout/success" element={<Confirmation />} />
+        <Route exact path="item/:itemId" element={<ItemDetails />} />
       </Routes>
     </div>
   );
