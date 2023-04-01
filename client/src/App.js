@@ -8,6 +8,7 @@ import ItemDetails from "./pages/itemDetails/ItemDetails";
 import Confirmation from "./pages/checkout/Confirmation";
 import Navbar from "./pages/global/Navbar";
 import CartMenu from "./pages/global/CartMenu";
+import Footer from "./pages/global/Footer";
 
 // starts each page you navigate to at the top
 const ScrollToTop = () => {
@@ -77,6 +78,7 @@ function App() {
         <Route exact path="item/:itemId" element={<ItemDetails />} />
       </Routes>
       <CartMenu />
+      <Footer />
     </div>
   );
 }
