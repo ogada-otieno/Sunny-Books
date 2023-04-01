@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import "./App.css";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Checkout from "./pages/Checkout";
+
+// starts each page you navigate to at the top
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+};
 
 function App() {
   const [user, setUser] = useState(null);
@@ -19,7 +27,7 @@ function App() {
         res
           .json()
           .then((user) => {
-            sessionStorage.setItem('user', user)
+            sessionStorage.setItem("user", user);
             setUser(user);
           })
           .catch((err) => console.log(err));
@@ -37,11 +45,12 @@ function App() {
 
   const handleLogout = () => {
     setUser(null);
-    sessionStorage.removeItem('user')
+    sessionStorage.removeItem("user");
   };
 
   return (
-    <div className="App">
+    <div className="app">
+    <ScrollToTop />
       <Routes>
         <Route
           exact
@@ -53,7 +62,11 @@ function App() {
           path="/register"
           element={<Register onRegister={handleRegister} />}
         />
-        <Route exact path="/" element={<Home user={user} onLogout={handleLogout} />} />
+        <Route
+          exact
+          path="/"
+          element={<Home user={user} onLogout={handleLogout} />}
+        />
         <Route exact path="/checkout" element={<Checkout />} />
       </Routes>
     </div>
