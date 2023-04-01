@@ -83,11 +83,11 @@ const MainCarousel = () => {
             margin={isNonMobile ? undefined : "0 auto"}
             maxWidth={isNonMobile ? undefined : "240px"}
           >
-            <Typography color={shades.secondary[200]}>-- NEW ITEMS</Typography>
+            <Typography color="purple" fontWeight="bold">-- NEW ITEMS</Typography>
             <Typography variant="h1">This Month's Newest Releases</Typography>
             <Typography
               fontWeight="bold"
-              color={shades.secondary[300]}
+              color="purple"
               sx={{ textDecoration: "underline" }}
             >
               Discover More
