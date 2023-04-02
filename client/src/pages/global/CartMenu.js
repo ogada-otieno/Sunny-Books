@@ -1,10 +1,12 @@
 import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch,ReactReduxContext } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "@emotion/styled";
 import { shades } from "../../theme";
+// import store from "../../store";
+
 import {
   decreaseCount,
   increaseCount,
@@ -20,15 +22,18 @@ const FlexBox = styled(Box)`
 `;
 
 const CartMenu = () => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, book) => {
-    return parseInt(total) + parseInt(book.count) * parseInt(book.price);
+    
+    return parseInt(total) + parseInt(book.item.count) * parseInt(book.item.price);
   }, 0);
 
+  // console.log(store.getState())
   return (
     <Box
       display={isCartOpen ? "block" : "none"}
@@ -60,30 +65,33 @@ const CartMenu = () => {
 
           {/* CART LIST */}
           <Box>
-            {cart.map((book) => (
-              <Box key={book.id}>
+
+            {cart.map((book, cartId) => {
+                 const {image_url,title,id,description,price,count} = book.item;
+              return (
+              <Box key={cartId}>
                 <FlexBox p="15px 0">
+                  
                   <Box flex="1 1 40%">
                     <img
-                      alt={book?.title}
+                      alt={title}
                       width="123px"
                       height="164px"
-                      // src={`http://localhost:2000${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
-                      src={book.image_url}
+                      src={image_url}
                     />
                   </Box>
                   <Box flex="1 1 60%">
                     <FlexBox mb="5px">
-                      <Typography fontWeight="bold">{book.title}</Typography>
+                      <Typography fontWeight="bold">{title}</Typography>
                       <IconButton
                         onClick={() =>
-                          dispatch(removeFromCart({ id: book.id }))
+                          dispatch(removeFromCart({ id: id }))
                         }
                       >
                         <CloseIcon />
                       </IconButton>
                     </FlexBox>
-                    <Typography>{book.description}</Typography>
+                    <Typography>{description}</Typography>
                     <FlexBox m="15px 0">
                       <Box
                         display="flex"
@@ -92,29 +100,29 @@ const CartMenu = () => {
                       >
                         <IconButton
                           onClick={() =>
-                            dispatch(decreaseCount({ id: book.id }))
+                            dispatch(decreaseCount({ id: id }))
                           }
                         >
                           <RemoveIcon />
                         </IconButton>
-                        <Typography>{book.count}</Typography>
+                        <Typography>{count}</Typography>
                         <IconButton
                           onClick={() =>
-                            dispatch(increaseCount({ id: book.id }))
+                           
+                            dispatch(increaseCount({ id: id }))
                           }
                         >
                           <AddIcon />
                         </IconButton>
                       </Box>
-                      <Typography fontWeight="bold">${book.price}</Typography>
+                      <Typography fontWeight="bold">${price}</Typography>
                     </FlexBox>
                   </Box>
                 </FlexBox>
                 <Divider />
               </Box>
-            ))}
+            )})}
           </Box>
-
           {/* ACTIONS */}
           <Box m="20px 0">
             <FlexBox m="20px 0">

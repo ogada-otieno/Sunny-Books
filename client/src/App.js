@@ -26,8 +26,7 @@ function App() {
     // auto-login user
     fetch("/me", {
       method: "GET",
-      // credentials: "same-origin", // or 'same-origin'
-    }).then((res) => {
+     }).then((res) => {
       if (res.ok) {
         res
           .json()
@@ -75,7 +74,7 @@ function App() {
         />
         <Route exact path="/checkout" element={<Checkout />} />
         <Route exact path="/checkout/success" element={<Confirmation />} />
-        <Route exact path="book/:BookId" element={<BookDetails />} />
+        <Route exact path="book/:bookId" element={<BookDetails />} />
       </Routes>
       <CartMenu />
       <Footer />

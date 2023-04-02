@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const BookCard = ({ book, width }) => {
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [count, setCount] = useState(1); //local state: count of number of items we'll add to the cart
   const [isHovered, setIsHovered] = useState(false); //determines if a user has hovered over an item.
@@ -22,19 +23,8 @@ const BookCard = ({ book, width }) => {
   //destructure the book item attributes
 
   const { category, price, title, image_url } = book;
-  
+
   // category = book.category.genre
-
-
-  //   const {
-  //     data: {
-  //       attributes: {
-  //         formats: {
-  //           medium: { url },
-  //         },
-  //       },
-  //     },
-  //   } = category;
 
   return (
     <Box width={width}>
@@ -48,7 +38,9 @@ const BookCard = ({ book, width }) => {
           width="300px"
           height="400px"
           src={image_url}
-          onClick={() => navigate(`/book/${book.id}`)}
+          onClick={() => {
+            console.log(book.id)
+            navigate(`/book/${book.id}`)}}
           style={{ cursor: "pointer" }}
         />
         <Box

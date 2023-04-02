@@ -7,16 +7,17 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../../theme";
 import { addToCart } from "../../state";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import BookCard from "../../components/BookCard";
 
 const BookDetails = () => {
-  const dispatch = useDispatch();
   const { bookId } = useParams();
   const [value, setValue] = useState("description");
   const [count, setCount] = useState(1);
   const [book, setBook] = useState(null);
   const [books, setBooks] = useState([]);
+
+  const dispatch = useDispatch();
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
@@ -24,7 +25,7 @@ const BookDetails = () => {
 
   const getBook = () => {
     axios
-      .get(`books/${bookId}`)
+      .get(`/books/${bookId}`)
       .then((res) => {
         const fetchedBook = res.data;
         // console.log(fetchedBook);
@@ -38,7 +39,7 @@ const BookDetails = () => {
       .get("/books")
       .then((res) => {
         const fetchedBooks = res.data;
-        console.log(fetchedBooks);
+        // console.log(fetchedBooks);
         dispatch(setBooks(fetchedBooks));
       })
       .catch((err) => console.log(err));
@@ -52,7 +53,7 @@ const BookDetails = () => {
   return (
     <Box width="80%" m="80px auto">
       <Box display="flex" flexWrap="wrap" columnGap="40px">
-        {/* IMAGES */}
+        {/* images to render */}
         <Box flex="1 1 40%" mb="40px">
           <img
             alt={book?.title}
@@ -63,7 +64,7 @@ const BookDetails = () => {
           />
         </Box>
 
-        {/* ACTIONS */}
+        {/* actions */}
         <Box flex="1 1 50%" mb="40px">
           <Box display="flex" justifyContent="space-between">
             <Box>Home</Box>
@@ -73,9 +74,7 @@ const BookDetails = () => {
           <Box m="65px 0 25px 0">
             <Typography variant="h3">{book?.title}</Typography>
             <Typography>KSh. {book?.price}</Typography>
-            <Typography sx={{ mt: "20px" }}>
-              {book?.description}
-            </Typography>
+            <Typography sx={{ mt: "20px" }}>{book?.description}</Typography>
           </Box>
 
           <Box display="flex" alignItems="center" minHeight="50px">
@@ -102,7 +101,7 @@ const BookDetails = () => {
                 minWidth: "150px",
                 padding: "10px 40px",
               }}
-              onClick={() => dispatch(addToCart({ book: { ...book, count } }))}
+              onClick={() => dispatch(addToCart({ item: { ...book, count } }))}
             >
               ADD TO CART
             </Button>
@@ -125,10 +124,10 @@ const BookDetails = () => {
         </Tabs>
       </Box>
       <Box display="flex" flexWrap="wrap" gap="15px">
-        {value === "description" && (
-          <div>{book?.description}</div>
+        {value === "description" && <div>{book?.description}</div>}
+        {value === "reviews" && (
+          <div>Reviews will be displayed here...coming soon!</div>
         )}
-        {value === "reviews" && <div>Reviews will be displayed here...coming soon!</div>}
       </Box>
 
       {/* Display the first 5 related items */}
