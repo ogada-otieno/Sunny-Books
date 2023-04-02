@@ -26,17 +26,16 @@ export const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       // console.log(action);
       // anytime we want to remove from the cart, we filter out everything or keep all the items that are not equal to the ID that we are passing in. So the ID to be removed is passed in the action and everything else is left in the cart.
-      state.cart = state.cart.filter((book) => book.item.id !== action.payload.id);
+      state.cart = state.cart.filter(
+        (book) => book.item.id !== action.payload.id
+      );
     },
 
     // map through the entire cart to figure out which item to increment/update.
     increaseCount: (state, action) => {
       state.cart = state.cart.map((book) => {
         if (book.item.id === action.payload.id) {
-          // let newBook = { ...book };
-          // newBook.item.count = newBook.item.count + 1;
           book.item.count = book.item.count + 1;
-          // return {...newBook};
         }
         return book;
       });
@@ -57,6 +56,11 @@ export const cartSlice = createSlice({
     setIsCartOpen: (state) => {
       state.isCartOpen = !state.isCartOpen;
     },
+
+    // action to reset our cart on logout.
+    resetCart: (state) => {
+      state.cart = [];
+    },
   },
 });
 
@@ -68,6 +72,7 @@ export const {
   increaseCount,
   decreaseCount,
   setIsCartOpen,
+  resetCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

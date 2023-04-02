@@ -24,7 +24,6 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 
 const store = configureStore({
-  // reducer: { cart: cartReducer },
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -7,11 +7,12 @@ import {
   SearchOutlined,
 } from "@mui/icons-material";
 import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
+import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
-import { setIsCartOpen } from "../../state";
+import { setIsCartOpen, resetCart } from "../../state";
 
 const Navbar = ({ user, onLogout }) => {
   const navigate = useNavigate();
@@ -22,6 +23,9 @@ const Navbar = ({ user, onLogout }) => {
     fetch("/logout", {
       method: "DELETE",
     }).then(() => onLogout());
+
+    // reset cart state
+    dispatch(resetCart()); 
   };
 
   return (
@@ -89,6 +93,11 @@ const Navbar = ({ user, onLogout }) => {
           {user && (
             <IconButton onClick={handleLogout} sx={{ color: "red" }}>
               <LogoutSharpIcon />
+            </IconButton>
+          )}
+          {!user && (
+            <IconButton onClick={() => navigate("/login")} sx={{ color: "green" }}>
+              <LoginSharpIcon />
             </IconButton>
           )}
           <IconButton sx={{ color: "black" }}>

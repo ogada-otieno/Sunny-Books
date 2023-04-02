@@ -1,5 +1,5 @@
 import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
-import { useSelector, useDispatch,ReactReduxContext } from "react-redux";
+import { useSelector, useDispatch, ReactReduxContext } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -21,17 +21,34 @@ const FlexBox = styled(Box)`
   align-items: center;
 `;
 
-const CartMenu = () => {
-  
+const CartMenu = ({ user }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, book) => {
-    
-    return parseInt(total) + parseInt(book.item.count) * parseInt(book.item.price);
+    return (
+      parseInt(total) + parseInt(book.item.count) * parseInt(book.item.price)
+    );
   }, 0);
+
+  const handleCheckoutAndAddToOrder = async (e) => {
+    console.log(totalPrice);
+    console.log(user.id);
+
+    const fillOrder = await fetch(`/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        total_price: totalPrice,
+        user_id: user.id
+      }),
+    });
+
+    const data = await fillOrder.json()
+    console.log(data);
+  };
 
   // console.log(store.getState())
   return (
@@ -65,63 +82,60 @@ const CartMenu = () => {
 
           {/* CART LIST */}
           <Box>
-
             {cart.map((book, cartId) => {
-                 const {image_url,title,id,description,price,count} = book.item;
+              const { image_url, title, id, description, price, count } =
+                book.item;
+              {
+                /* console.log(book.item, cartId) */
+              }
+
               return (
-              <Box key={cartId}>
-                <FlexBox p="15px 0">
-                  
-                  <Box flex="1 1 40%">
-                    <img
-                      alt={title}
-                      width="123px"
-                      height="164px"
-                      src={image_url}
-                    />
-                  </Box>
-                  <Box flex="1 1 60%">
-                    <FlexBox mb="5px">
-                      <Typography fontWeight="bold">{title}</Typography>
-                      <IconButton
-                        onClick={() =>
-                          dispatch(removeFromCart({ id: id }))
-                        }
-                      >
-                        <CloseIcon />
-                      </IconButton>
-                    </FlexBox>
-                    <Typography>{description}</Typography>
-                    <FlexBox m="15px 0">
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        border={`1.5px solid ${shades.neutral[500]}`}
-                      >
+                <Box key={cartId}>
+                  <FlexBox p="15px 0">
+                    <Box flex="1 1 40%">
+                      <img
+                        alt={title}
+                        width="123px"
+                        height="164px"
+                        src={image_url}
+                      />
+                    </Box>
+                    <Box flex="1 1 60%">
+                      <FlexBox mb="5px">
+                        <Typography fontWeight="bold">{title}</Typography>
                         <IconButton
-                          onClick={() =>
-                            dispatch(decreaseCount({ id: id }))
-                          }
+                          onClick={() => dispatch(removeFromCart({ id: id }))}
                         >
-                          <RemoveIcon />
+                          <CloseIcon />
                         </IconButton>
-                        <Typography>{count}</Typography>
-                        <IconButton
-                          onClick={() =>
-                           
-                            dispatch(increaseCount({ id: id }))
-                          }
+                      </FlexBox>
+                      <Typography>{description}</Typography>
+                      <FlexBox m="15px 0">
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          border={`1.5px solid ${shades.neutral[500]}`}
                         >
-                          <AddIcon />
-                        </IconButton>
-                      </Box>
-                      <Typography fontWeight="bold">${price}</Typography>
-                    </FlexBox>
-                  </Box>
-                </FlexBox>
-                <Divider />
-              </Box>
-            )})}
+                          <IconButton
+                            onClick={() => dispatch(decreaseCount({ id: id }))}
+                          >
+                            <RemoveIcon />
+                          </IconButton>
+                          <Typography>{count}</Typography>
+                          <IconButton
+                            onClick={() => dispatch(increaseCount({ id: id }))}
+                          >
+                            <AddIcon />
+                          </IconButton>
+                        </Box>
+                        <Typography fontWeight="bold">${price}</Typography>
+                      </FlexBox>
+                    </Box>
+                  </FlexBox>
+                  <Divider />
+                </Box>
+              );
+            })}
           </Box>
           {/* ACTIONS */}
           <Box m="20px 0">
@@ -141,6 +155,7 @@ const CartMenu = () => {
               onClick={() => {
                 navigate("/checkout");
                 dispatch(setIsCartOpen({}));
+                handleCheckoutAndAddToOrder();
               }}
             >
               CHECKOUT

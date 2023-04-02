@@ -76,7 +76,7 @@ function App() {
         <Route exact path="/checkout/success" element={<Confirmation />} />
         <Route exact path="book/:bookId" element={<BookDetails />} />
       </Routes>
-      <CartMenu />
+      <CartMenu user={user} />
       <Footer />
     </div>
   );

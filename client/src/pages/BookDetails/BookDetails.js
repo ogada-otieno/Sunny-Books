@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../../theme";
 import { addToCart } from "../../state";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BookCard from "../../components/BookCard";
 
 const BookDetails = () => {

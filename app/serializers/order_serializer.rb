@@ -1,5 +1,5 @@
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id, :quantity, :total_price
+  attributes :id, :user_id, :total_price
   # belongs_to :user
   has_many :books
 end
