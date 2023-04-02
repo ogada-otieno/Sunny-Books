@@ -1,5 +1,5 @@
 import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
-import { useSelector, useDispatch, ReactReduxContext } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -11,6 +11,7 @@ import {
   decreaseCount,
   increaseCount,
   removeFromCart,
+  resetCart,
   setIsCartOpen,
 } from "../../state";
 import { useNavigate } from "react-router-dom";
@@ -34,8 +35,8 @@ const CartMenu = ({ user }) => {
   }, 0);
 
   const handleCheckoutAndAddToOrder = async (e) => {
-    console.log(totalPrice);
-    console.log(user.id);
+    // console.log(totalPrice);
+    // console.log(user.id);
 
     const fillOrder = await fetch(`/orders`, {
       method: "POST",
@@ -47,7 +48,8 @@ const CartMenu = ({ user }) => {
     });
 
     const data = await fillOrder.json()
-    console.log(data);
+    // console.log(data);
+    dispatch(resetCart()) // remove when payment has been configured to work properly
   };
 
   // console.log(store.getState())
@@ -153,7 +155,8 @@ const CartMenu = ({ user }) => {
                 m: "20px 0",
               }}
               onClick={() => {
-                navigate("/checkout");
+                // navigate("/checkout"); // will include this when payment functionality is complete
+                navigate("/checkout/success")
                 dispatch(setIsCartOpen({}));
                 handleCheckoutAndAddToOrder();
               }}

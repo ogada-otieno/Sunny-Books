@@ -8,6 +8,7 @@ import {
 } from "@mui/icons-material";
 import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
 import LoginSharpIcon from "@mui/icons-material/LoginSharp";
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +56,7 @@ const Navbar = ({ user, onLogout }) => {
         >
           <IconButton sx={{ color: "green" }}>
             <WbSunnyOutlinedIcon />
+            <AutoStoriesIcon />
           </IconButton>
           Sunny Books
         </Box>
