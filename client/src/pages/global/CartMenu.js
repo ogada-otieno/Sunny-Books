@@ -26,7 +26,7 @@ const CartMenu = () => {
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, book) => {
-    return total + book.count * book.price;
+    return parseInt(total) + parseInt(book.count) * parseInt(book.price);
   }, 0);
 
   return (
@@ -74,9 +74,7 @@ const CartMenu = () => {
                   </Box>
                   <Box flex="1 1 60%">
                     <FlexBox mb="5px">
-                      <Typography fontWeight="bold">
-                        {book.title}
-                      </Typography>
+                      <Typography fontWeight="bold">{book.title}</Typography>
                       <IconButton
                         onClick={() =>
                           dispatch(removeFromCart({ id: book.id }))
@@ -108,9 +106,7 @@ const CartMenu = () => {
                           <AddIcon />
                         </IconButton>
                       </Box>
-                      <Typography fontWeight="bold">
-                        ${book.price}
-                      </Typography>
+                      <Typography fontWeight="bold">${book.price}</Typography>
                     </FlexBox>
                   </Box>
                 </FlexBox>

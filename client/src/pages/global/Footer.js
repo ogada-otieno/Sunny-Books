@@ -46,8 +46,11 @@ function Footer() {
             Customer Care
           </Typography>
           <Typography mb="30px">Help Center</Typography>
+          <Typography mb="30px">Frequently Asked Questions</Typography>
+          <Typography mb="30px">Complaints</Typography>
           <Typography mb="30px">Track Your Order</Typography>
           <Typography mb="30px">Corporate & Bulk Purchasing</Typography>
+          <Typography mb="30px">Partner With Us</Typography>
           <Typography mb="30px">Returns & Refunds</Typography>
         </Box>
 

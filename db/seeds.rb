@@ -6,7 +6,7 @@ puts "Seeding users..."
     User.create(
         name: Faker::Name.name,
         email: Faker::Internet.free_email,
-        password: "@abc123ABC",
+        password: "12345678",
         phone_number: 123456789,
         avatar_url: Faker::Avatar.image,
         is_admin: boolean_value.sample
@@ -36,7 +36,8 @@ end
         publisher: Faker::Book.publisher,
         year_of_publication: "12-12-2015",
         price: 10.12,
-        image_url: Faker::LoremFlickr.image,
+        # image_url: Faker::LoremFlickr.image,
+        image_url: "https://notionpress.com/blog/wp-content/uploads/2015/07/001-book-brand-cover-back-presentation-mockup-psd.jpg",
         isbn: "123456789012345678",
         category_id: rand(1..10)
     )
