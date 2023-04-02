@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Tabs, Tab, Box, Typography, useMediaQuery } from "@mui/material";
 import BookCard from "../../components/BookCard";
-import { setItems } from "../../state";
+import { setBooks } from "../../state";
 
 const BookList = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const BookList = () => {
       .then((res) => {
         const fetchedBooks = res.data;
         // console.log(fetchedBooks);
-        dispatch(setItems(fetchedBooks));
+        dispatch(setBooks(fetchedBooks));
       })
       .catch((err) => console.log(err));
   };
@@ -75,9 +75,8 @@ const BookList = () => {
         rowGap="20px"
         columnGap="1.33%"
       >
-        {value === "all" && books.map((book) => (
-          <BookCard  book={book} key={book.id}/>
-        ))}
+        {value === "all" &&
+          books.map((book) => <BookCard book={book} key={book.id} />)}
       </Box>
     </Box>
   );

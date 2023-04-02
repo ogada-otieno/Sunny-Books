@@ -14,7 +14,7 @@ export const cartSlice = createSlice({
   // and when state changes, pass the action into the payload
   initialState,
   reducers: {
-    setItems: (state, action) => {
+    setBooks: (state, action) => {
       state.books = action.payload;
     },
 
@@ -57,7 +57,7 @@ export const cartSlice = createSlice({
 
 // export all the actions/states
 export const {
-  setItems,
+  setBooks,
   addToCart,
   removeFromCart,
   increaseCount,
