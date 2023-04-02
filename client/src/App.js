@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/home/Home";
 import Register from "./pages/Register";
 import Checkout from "./pages/checkout/Checkout";
-import ItemDetails from "./pages/itemDetails/ItemDetails";
+import BookDetails from "./pages/BookDetails/BookDetails";
 import Confirmation from "./pages/checkout/Confirmation";
 import Navbar from "./pages/global/Navbar";
 import CartMenu from "./pages/global/CartMenu";
@@ -75,7 +75,7 @@ function App() {
         />
         <Route exact path="/checkout" element={<Checkout />} />
         <Route exact path="/checkout/success" element={<Confirmation />} />
-        <Route exact path="item/:itemId" element={<ItemDetails />} />
+        <Route exact path="book/:BookId" element={<BookDetails />} />
       </Routes>
       <CartMenu />
       <Footer />

@@ -48,7 +48,7 @@ const BookCard = ({ book, width }) => {
           width="300px"
           height="400px"
           src={image_url}
-          onClick={() => navigate(`/item/${book.id}`)}
+          onClick={() => navigate(`/book/${book.id}`)}
           style={{ cursor: "pointer" }}
         />
         <Box
