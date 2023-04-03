@@ -11,6 +11,8 @@ function HomePage() {
   }, []);
 
   return (
+    <div className="home-content">
+      <h2 className="home-title">Welcome to Sunny Books</h2>
     <div id="carouselExample" className="carousel slide">
         <Link to="/books">
       <button className = "btn-danger" type="button">View Books
@@ -31,6 +33,7 @@ function HomePage() {
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Next</span>
       </button>
+    </div>
     </div>
   );
 }
