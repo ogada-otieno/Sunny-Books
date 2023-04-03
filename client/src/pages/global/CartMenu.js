@@ -1,12 +1,12 @@
-import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "@emotion/styled";
 import { shades } from "../../theme";
 // import store from "../../store";
-
 import {
   decreaseCount,
   increaseCount,
@@ -14,7 +14,6 @@ import {
   resetCart,
   setIsCartOpen,
 } from "../../state";
-import { useNavigate } from "react-router-dom";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -34,22 +33,44 @@ const CartMenu = ({ user }) => {
     );
   }, 0);
 
-  const handleCheckoutAndAddToOrder = async (e) => {
-    // console.log(totalPrice);
-    // console.log(user.id);
+  // array of all books in the cart
+  const bookHolder = cart.map((book) => book.item);
+  // console.log(bookHolder);
 
+  const handleCheckoutAndAddToOrder = async (e) => {
     const fillOrder = await fetch(`/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         total_price: totalPrice,
-        user_id: user.id
+        user_id: user.id,
       }),
     });
 
-    const data = await fillOrder.json()
-    // console.log(data);
-    dispatch(resetCart()) // remove when payment has been configured to work properly
+    const order = await fillOrder.json();
+
+    for (const book of bookHolder) {
+      const data = {
+        quantity: book.count,
+        book_id: book.id,
+        order_id: order.id,
+      };
+      console.log(data);
+
+      fetch("/order_books", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.error(err));
+    }
+
+
+    dispatch(resetCart()); // remove when payment has been configured to work properly
   };
 
   // console.log(store.getState())
@@ -156,7 +177,7 @@ const CartMenu = ({ user }) => {
               }}
               onClick={() => {
                 // navigate("/checkout"); // will include this when payment functionality is complete
-                navigate("/checkout/success")
+                navigate("/checkout/success");
                 dispatch(setIsCartOpen({}));
                 handleCheckoutAndAddToOrder();
               }}

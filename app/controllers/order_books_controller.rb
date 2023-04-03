@@ -9,7 +9,7 @@ class OrderBooksController < ApplicationController
     private
 
     def order_books_params
-        params.permit(:order_id, :quantity)
+        params.permit(:order_id, :quantity, :book_id)
     end
 
     # render error for invalid parameters / unprocessable entities
