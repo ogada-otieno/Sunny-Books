@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/home/Home";
 import Register from "./pages/Register";
@@ -10,6 +10,7 @@ import Navbar from "./pages/global/Navbar";
 import CartMenu from "./pages/global/CartMenu";
 import Footer from "./pages/global/Footer";
 import NotFound from "./pages/global/NotFound";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 // starts each page you navigate to at the top
 const ScrollToTop = () => {
@@ -27,7 +28,7 @@ function App() {
     // auto-login user
     fetch("/me", {
       method: "GET",
-     }).then((res) => {
+    }).then((res) => {
       if (res.ok) {
         res
           .json()
@@ -58,20 +59,37 @@ function App() {
       <Navbar user={user} onLogout={handleLogout} />
       <ScrollToTop />
       <Routes>
+        {/* <Route exact element={<PrivateRoutes user={user} />}>
+          <Route exact path="/checkout/success" element={<Confirmation />} />
+          <Route exact path="/checkout" element={<Checkout />} />
+        </Route> */}
+
         <Route
           exact
           path="/login"
-          element={<Login setUser onLogin={handleLogin} />}
+          element={
+            !user ? (
+              <Login setUser onLogin={handleLogin} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
         />
         <Route
           exact
           path="/register"
-          element={<Register onRegister={handleRegister} />}
+          element={
+            !user ? (
+              <Register onRegister={handleRegister} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
         />
         <Route
           exact
           path="/"
-          element={<Home user={user} onLogout={handleLogout} />}
+          element={<Home user={user} />}
         />
         <Route exact path="/checkout" element={<Checkout />} />
         <Route exact path="/checkout/success" element={<Confirmation />} />
