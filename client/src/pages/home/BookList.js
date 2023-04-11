@@ -22,7 +22,7 @@ const BookList = () => {
       .get("/books")
       .then((res) => {
         const fetchedBooks = res.data;
-        // console.log(fetchedBooks);
+        console.log(fetchedBooks);
         dispatch(setBooks(fetchedBooks));
       })
       .catch((err) => console.log(err));
@@ -63,6 +63,7 @@ const BookList = () => {
       >
         {/* displays the various filters available for the books.  */}
         <Tab label="All" value="all" />
+        {/* add code for the remaining filters. */}
         <Tab label="Fiction" value="fiction" />
         <Tab label="Thrillers" value="thriller" />
         <Tab label="Adult" value="adult" />
@@ -76,7 +77,7 @@ const BookList = () => {
         columnGap="1.33%"
       >
         {value === "all" &&
-          books.map((book) => <BookCard book={book} key={book.id} />)}
+          books.map((book) => (<BookCard book={book} key={book.id} />))}
       </Box>
     </Box>
   );
