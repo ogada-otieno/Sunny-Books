@@ -2,7 +2,7 @@
 // reusable across the entire application
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
+import { IconButton, Box, Typography, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
@@ -15,14 +15,15 @@ const BookCard = ({ book, width }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(1); //local state: count of number of items we'll add to the cart
   const [isHovered, setIsHovered] = useState(false); //determines if a user has hovered over an item.
-  const {
-    //grab color from the useTheme property
-    palette: { neutral },
-  } = useTheme();
+
+  //grab color from the useTheme property
+  //  const {
+  //   palette: { neutral },
+  // } = useTheme();
 
   //destructure the book item attributes
 
-  const { category, price, title, image_url } = book;
+  const { price, title, image_url } = book;
 
   // category = book.category.genre
 
@@ -39,8 +40,9 @@ const BookCard = ({ book, width }) => {
           height="400px"
           src={image_url}
           onClick={() => {
-            console.log(book.id)
-            navigate(`/book/${book.id}`)}}
+            console.log(book.id);
+            navigate(`/book/${book.id}`);
+          }}
           style={{ cursor: "pointer" }}
         />
         <Box
@@ -80,12 +82,9 @@ const BookCard = ({ book, width }) => {
         </Box>
       </Box>
       <Box mt="3px">
-        <Typography variant="subtitle2" color={neutral.dark}>
+        {/* <Typography variant="subtitle2" color={neutral.dark}>
           {book.category.genre}
-          {/* {category
-            .replace(/([A-Z])/g, "$1")
-            .replace(/^./, (str) => str.toUpperCase())} */}
-        </Typography>
+        </Typography> */}
         <Typography>{title}</Typography>
         <Typography fontWeight="bold">KES {price}</Typography>
       </Box>

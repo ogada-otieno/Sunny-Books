@@ -29,16 +29,16 @@ const BookList = () => {
   };
 
   // fetch categories
-  const getCategories = () => {
-    axios.get("/categories").then((res) => {
-      const fetchedCategories = res.data;
-      // console.log(fetchedCategories);
-    });
-  };
+  // const getCategories = () => {
+  //   axios.get("/categories").then((res) => {
+  //     const fetchedCategories = res.data;
+  //     // console.log(fetchedCategories);
+  //   });
+  // };
 
   useEffect(() => {
     getBooks();
-    getCategories();
+    // getCategories();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // include filters for categories here!!!
@@ -78,7 +78,6 @@ const BookList = () => {
       >
         {value === "all" &&
           Object.values(books).map((book) => {
-            console.log(book);
             return <BookCard book={book} key={book.id} />;
           })}
       </Box>
