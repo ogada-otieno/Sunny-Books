@@ -77,7 +77,10 @@ const BookList = () => {
         columnGap="1.33%"
       >
         {value === "all" &&
-          books.map((book) => (<BookCard book={book} key={book.id} />))}
+          Object.values(books).map((book) => {
+            console.log(book);
+            return <BookCard book={book} key={book.id} />;
+          })}
       </Box>
     </Box>
   );
