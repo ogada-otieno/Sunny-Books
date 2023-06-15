@@ -10,7 +10,7 @@ import Navbar from "./pages/global/Navbar";
 import CartMenu from "./pages/global/CartMenu";
 import Footer from "./pages/global/Footer";
 import NotFound from "./pages/global/NotFound";
-import PrivateRoutes from "./components/PrivateRoutes";
+// import PrivateRoutes from "./components/PrivateRoutes";
 
 // starts each page you navigate to at the top
 const ScrollToTop = () => {

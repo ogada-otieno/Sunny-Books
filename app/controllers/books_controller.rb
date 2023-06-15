@@ -19,8 +19,7 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
-    # super
-    @book = Book.create!(book_params)
+     @book = Book.create!(book_params)
     render json: @book, status: :created, location: @book
   end
 
