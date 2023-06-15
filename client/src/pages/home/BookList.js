@@ -22,7 +22,7 @@ const BookList = () => {
       .get("/books")
       .then((res) => {
         const fetchedBooks = res.data;
-        console.log(fetchedBooks);
+        // console.log(fetchedBooks);
         dispatch(setBooks(fetchedBooks));
       })
       .catch((err) => console.log(err));

@@ -2,7 +2,7 @@
 // reusable across the entire application
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Box, Typography, Button } from "@mui/material";
+import { IconButton, Box, useTheme, Typography, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
@@ -16,10 +16,10 @@ const BookCard = ({ book, width }) => {
   const [count, setCount] = useState(1); //local state: count of number of items we'll add to the cart
   const [isHovered, setIsHovered] = useState(false); //determines if a user has hovered over an item.
 
-  //grab color from the useTheme property
-  //  const {
-  //   palette: { neutral },
-  // } = useTheme();
+  // grab color from the useTheme property
+   const {
+    palette: { neutral },
+  } = useTheme();
 
   //destructure the book item attributes
 
