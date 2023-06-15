@@ -17,7 +17,7 @@ const BookCard = ({ book, width }) => {
   const [isHovered, setIsHovered] = useState(false); //determines if a user has hovered over an item.
 
   // grab color from the useTheme property
-   const {
+   const { // eslint-disable-next-line 
     palette: { neutral },
   } = useTheme();
 

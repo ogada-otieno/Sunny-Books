@@ -108,9 +108,6 @@ const CartMenu = ({ user }) => {
             {cart.map((book, cartId) => {
               const { image_url, title, id, description, price, count } =
                 book.item;
-              {
-                /* console.log(book.item, cartId) */
-              }
 
               return (
                 <Box key={cartId}>

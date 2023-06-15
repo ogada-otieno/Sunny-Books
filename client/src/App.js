@@ -36,7 +36,7 @@ function App() {
             sessionStorage.setItem("user", user);
             setUser(user);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {console.log(err)});
       }
     });
   }, []);

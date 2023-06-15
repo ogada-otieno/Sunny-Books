@@ -36,8 +36,8 @@ const Checkout = () => {
     actions.setTouched({});
   };
 
-  async function makePayment(values) {
-    const stripe = await stripePromise;
+  async function makePayment(values) { // eslint-disable-next-line 
+    const stripe = await stripePromise; // eslint-disable-next-line 
     const requestBody = {
       userName: [values.firstName, values.lastName].join(" "),
       email: values.email,
