@@ -9,6 +9,7 @@ import { shades } from "../../theme";
 import { addToCart } from "../../state";
 import { useParams } from "react-router-dom";
 import BookCard from "../../components/BookCard";
+import api from "../../config/api";
 
 const BookDetails = () => {
   const { bookId } = useParams();
@@ -25,10 +26,9 @@ const BookDetails = () => {
 
   const getBook = () => {
     axios
-      .get(`/books/${bookId}`)
+      .get(api.baseUrl+"books/"+bookId)
       .then((res) => {
         const fetchedBook = res.data;
-        // console.log(fetchedBook);
         dispatch(setBook(fetchedBook));
       })
       .catch((err) => console.log(err));
@@ -36,10 +36,9 @@ const BookDetails = () => {
 
   const getBooks = () => {
     axios
-      .get("/books")
+      .get(api.baseUrl+"books")
       .then((res) => {
         const fetchedBooks = res.data;
-        // console.log(fetchedBooks);
         dispatch(setBooks(fetchedBooks));
       })
       .catch((err) => console.log(err));

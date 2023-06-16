@@ -10,6 +10,7 @@ import Navbar from "./pages/global/Navbar";
 import CartMenu from "./pages/global/CartMenu";
 import Footer from "./pages/global/Footer";
 import NotFound from "./pages/global/NotFound";
+import api from './config/api.js'
 // import PrivateRoutes from "./components/PrivateRoutes";
 
 // starts each page you navigate to at the top
@@ -26,10 +27,11 @@ function App() {
 
   useEffect(() => {
     // auto-login user
-    fetch("/me", {
+    
+    fetch(api.baseUrl+"me", {
       method: "GET",
     }).then((res) => {
-      if (res.ok) {
+       if (res.ok) {
         res
           .json()
           .then((user) => {
@@ -59,11 +61,6 @@ function App() {
       <Navbar user={user} onLogout={handleLogout} />
       <ScrollToTop />
       <Routes>
-        {/* <Route exact element={<PrivateRoutes user={user} />}>
-          <Route exact path="/checkout/success" element={<Confirmation />} />
-          <Route exact path="/checkout" element={<Checkout />} />
-        </Route> */}
-
         <Route
           exact
           path="/login"

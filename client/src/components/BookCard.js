@@ -82,9 +82,6 @@ const BookCard = ({ book, width }) => {
         </Box>
       </Box>
       <Box mt="3px">
-        {/* <Typography variant="subtitle2" color={neutral.dark}>
-          {book.category.genre}
-        </Typography> */}
         <Typography>{title}</Typography>
         <Typography fontWeight="bold">KES {price}</Typography>
       </Box>

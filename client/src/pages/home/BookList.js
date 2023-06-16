@@ -4,13 +4,13 @@ import axios from "axios";
 import { Tabs, Tab, Box, Typography, useMediaQuery } from "@mui/material";
 import BookCard from "../../components/BookCard";
 import { setBooks } from "../../state";
+import api from "../../config/api";
 
 const BookList = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
   const books = useSelector((state) => state.cart.books);
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  // console.log("books", books);
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
@@ -19,10 +19,9 @@ const BookList = () => {
   // fetch books data from the backend
   const getBooks = () => {
     axios
-      .get("/books")
+      .get(api.baseUrl+"books")
       .then((res) => {
         const fetchedBooks = res.data;
-        // console.log(fetchedBooks);
         dispatch(setBooks(fetchedBooks));
       })
       .catch((err) => console.log(err));
